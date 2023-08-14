@@ -1,5 +1,6 @@
 package com.ad.admonteirojavafx;
 
+import com.ad.admonteirojavafx.repository.ADRepository;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -17,6 +18,7 @@ public class ADApplication extends Application {
         stage.show();
         stage.setResizable(false);
         stage.centerOnScreen();
+        ADRepository.initFirebaseAPP();
     }
 
     public static void main(String[] args) {

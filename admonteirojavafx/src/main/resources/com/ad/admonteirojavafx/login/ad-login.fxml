@@ -4,18 +4,26 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ad.admonteirojavafx.controller.ADLoginController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ad.admonteirojavafx.controller.ADLoginController">
    <children>
-      <Button layoutX="174.0" layoutY="137.0" mnemonicParsing="false" onAction="#loginButton" text="Login" />
-      <Label layoutX="93.0" layoutY="23.0" text="AD MONTEIRO ADMIN">
+      <Rectangle arcHeight="20.0" arcWidth="20.0" fill="DODGERBLUE" height="249.0" layoutX="226.0" layoutY="163.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="349.0" />
+      <Button layoutX="421.0" layoutY="335.0" mnemonicParsing="false" onAction="#loginButton" prefHeight="25.0" prefWidth="86.0" style="-fx-background-color: white; -fx-cursor: hand;" text="Login" textFill="#7d7d80" />
+      <Label layoutX="294.0" layoutY="194.0" text="AD MONTEIRO ADMIN" textFill="WHITE">
          <font>
             <Font name="Arial Bold" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="93.0" layoutY="71.0" text="Password" />
-      <PasswordField fx:id="password" layoutX="93.0" layoutY="88.0" prefHeight="25.0" prefWidth="213.0" />
-      <Button layoutX="306.0" layoutY="137.0" mnemonicParsing="false" onAction="#exit" text="Sair" />
+      <PasswordField fx:id="password" layoutX="265.0" layoutY="263.0" prefHeight="25.0" prefWidth="272.0" promptText="ID user" />
+      <Button layoutX="294.0" layoutY="335.0" mnemonicParsing="false" onAction="#exit" prefHeight="25.0" prefWidth="86.0" style="-fx-background-color: white; -fx-cursor: hand;" text="Sair" textFill="#7d7d80" />
+      <Rectangle fx:id="rectangleAlert" arcHeight="20.0" arcWidth="20.0" fill="#2197ff13" height="45.0" layoutX="229.0" layoutY="84.0" stroke="DODGERBLUE" strokeType="INSIDE" width="343.0" />
+      <Button fx:id="buttonCloseAlert" layoutX="520.0" layoutY="84.0" mnemonicParsing="false" onAction="#closeAlert" prefHeight="45.0" prefWidth="52.0" style="-fx-background-color: #1e90ff; -fx-border-radius: 0 9px 9px 0; -fx-border-color: #1e90ff; -fx-background-radius: 0 9px 9px 0; -fx-opacity: 0.5; -fx-cursor: hand;" text="X" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Label fx:id="message" layoutX="239.0" layoutY="98.0" text="Label" textFill="#7d7d80" />
    </children>
 </Pane>

@@ -13,10 +13,10 @@ public class Creator {
                                   String minute){
         Cult cult = new Cult();
 
-        cult.setName(name);
-        cult.setDayWeek(dayWeek);
-        cult.setHour(hour);
-        cult.setMinute(minute);
+        cult.setNameCult(name);
+        cult.setDayWeekCult(dayWeek);
+        cult.setHourCult(hour);
+        cult.setMinuteCult(minute);
 
         return cult;
     }
@@ -30,12 +30,12 @@ public class Creator {
 
         ChurchEvent churchEvent = new ChurchEvent();
 
-        churchEvent.setName(name);
-        churchEvent.setDate(date);
-        churchEvent.setHour(hour);
-        churchEvent.setMinute(minute);
-        churchEvent.setLocation(location);
-        churchEvent.setDescription(description);
+        churchEvent.setNameEvent(name);
+        churchEvent.setDateEvent(date.toString());
+        churchEvent.setHourEvent(hour);
+        churchEvent.setMinuteEvent(minute);
+        churchEvent.setLocationEvent(location);
+        churchEvent.setDescriptionEvent(description);
 
         return churchEvent;
     }

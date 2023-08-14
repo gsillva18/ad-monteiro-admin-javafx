@@ -2,37 +2,34 @@ package com.ad.admonteirojavafx.service;
 
 import com.ad.admonteirojavafx.core.enums.TypeInformation;
 import com.ad.admonteirojavafx.core.utils.Creator;
-import com.ad.admonteirojavafx.model.ADMonteiroModel;
 import com.ad.admonteirojavafx.model.ChurchEvent;
 import com.ad.admonteirojavafx.model.Cult;
 import com.ad.admonteirojavafx.repository.ADRepository;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ADService {
 
     private final ADRepository adRepository = new ADRepository();
+
+    public void login(PasswordField UIDUser)throws Exception{
+        adRepository.login(UIDUser.getText());
+    }
 
     public void createCult(TextField nameCult,
                            TextField hour,
                            TextField minute,
                            ComboBox<String> dayWeek){
 
-        ADMonteiroModel adModel = adRepository.findADMonteiroModel();
-        List<Cult> cults = adModel.getCults();
-
         Cult cult = Creator.createCult(nameCult.getText(),
                 dayWeek.getValue(),
                 hour.getText(),
                 minute.getText());
 
-        cults.add(cult);
-        adModel.setCults(cults);
-        adRepository.saveADMonteiroModel(adModel);
+        adRepository.createCult(nameCult.getText().replaceAll("\\s","").toLowerCase(),cult);
     }
 
     public void createEvent(TextField nameEvent,
@@ -42,9 +39,6 @@ public class ADService {
                             DatePicker dateEvent,
                             TextArea description){
 
-        ADMonteiroModel adModel = adRepository.findADMonteiroModel();
-        List<ChurchEvent> churchEvents = adModel.getChurchEvents();
-
         ChurchEvent churchEvent = Creator.createChurchEvent(nameEvent.getText(),
                 dateEvent.getValue(),
                 hourEvent.getText(),
@@ -52,39 +46,19 @@ public class ADService {
                 locationEvent.getText(),
                 description.getText());
 
-        churchEvents.add(churchEvent);
-        adModel.setChurchEvents(churchEvents);
-        adRepository.saveADMonteiroModel(adModel);
+        adRepository.createEvent(nameEvent.getText().replaceAll("\\s","").toLowerCase(),churchEvent);
 
 
     }
 
-    public void deleteCultEvent(TextField name, ComboBox<TypeInformation> typeInformation){
+    public void deleteCultOrEvent(TextField name, TypeInformation typeInformation){
 
-        ADMonteiroModel adModel = adRepository.findADMonteiroModel();
-
-        if (typeInformation.getValue() == TypeInformation.CULT){
-            List<Cult> cults = deleteCult(name.getText(), adModel.getCults());
-            adModel.setCults(cults);
+        if (typeInformation == TypeInformation.CULT){
+            adRepository.deleteCult(name.getText());
         }else{
-            List<ChurchEvent> churchEvents = deleteEvent(name.getText(), adModel.getChurchEvents());
-            adModel.setChurchEvents(churchEvents);
+            adRepository.deleteChurchEvent(name.getText());
         }
 
-        adRepository.saveADMonteiroModel(adModel);
-
-    }
-
-    private List<Cult> deleteCult(String name, List<Cult> cults){
-
-        cults.removeIf(element->element.getName().equals(name));
-
-        return cults;
-    }
-
-    private List<ChurchEvent> deleteEvent(String name, List<ChurchEvent> churchEvents){
-        churchEvents.removeIf(element->element.getName().equals(name));
-        return churchEvents;
     }
 
 }

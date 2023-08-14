@@ -1,15 +1,14 @@
 package com.ad.admonteirojavafx.controller;
 
+import com.ad.admonteirojavafx.core.enums.TypeInformation;
 import com.ad.admonteirojavafx.core.utils.Validator;
 import com.ad.admonteirojavafx.exchanger.ExchangerPages;
 import com.ad.admonteirojavafx.service.ADService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.shape.Shape;
 
 import java.io.IOException;
 import java.net.URL;
@@ -40,11 +39,18 @@ public class ADHomeController implements Initializable {
     private DatePicker dateEvent;
     @FXML
     private TextArea description;
+    @FXML
+    private Label message;
+    @FXML
+    private Shape rectangleAlert;
+    @FXML
+    private Button buttonCloseAlert;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.dayWeekCult.getItems().addAll("day week","domingo","segunda-feira","terça-feira",
                 "quarta-feira","quinta-feira","sexta-feira","sábado");
+        setVisible(false);
     }
 
     @FXML
@@ -55,6 +61,8 @@ public class ADHomeController implements Initializable {
             adService.createCult(nameCult, hourCult, minuteCult, dayWeekCult);
             clearFields();
         } catch (Exception e) {
+            message.setText(e.getMessage());
+            setVisible(true);
             System.out.println("O ERRO FOI: " + e.getMessage());
         }
 
@@ -67,6 +75,8 @@ public class ADHomeController implements Initializable {
             adService.createEvent(nameEvent, locationEvent, hourEvent, minuteEvent, dateEvent, description);
             clearFields();
         } catch (Exception e) {
+            message.setText(e.getMessage());
+            setVisible(true);
             System.out.println("O ERRO FOI: " + e.getMessage());
         }
     }
@@ -81,17 +91,35 @@ public class ADHomeController implements Initializable {
     }
 
     @FXML
-    public void delete(ActionEvent event){
+    public void deleteCult(ActionEvent event){
         try {
-            exchangerPages.exchangePageDelete(event);
-        } catch (IOException e) {
-            e.printStackTrace();
+            Validator.validateDelete(nameCult);
+            adService.deleteCultOrEvent(nameCult, TypeInformation.CULT);
+            clearFields();
+        } catch (Exception e) {
+            message.setText(e.getMessage());
+            setVisible(true);
+            System.out.println("ERRO AO DELETAR CULT");
+        }
+    }
+
+    @FXML
+    public void deleteChurchEvent(ActionEvent event){
+        try {
+            Validator.validateDelete(nameEvent);
+            adService.deleteCultOrEvent(nameEvent, TypeInformation.EVENT);
+            clearFields();
+        } catch (Exception e) {
+            message.setText(e.getMessage());
+            setVisible(true);
+            System.out.println("ERRO AO DELETAR EVENT");
         }
     }
 
     @FXML
     public void clearFields(){
         try {
+            setVisible(false);
             this.nameCult.clear();
             this.dayWeekCult.setValue("day week");
             this.dayWeekCult.commitValue();
@@ -105,6 +133,16 @@ public class ADHomeController implements Initializable {
             this.description.clear();
         }catch (Exception e){}
 
+    }
+
+    @FXML
+    public void  closeAlert(ActionEvent event){
+        setVisible(false);
+    }
+    private void setVisible(Boolean visible){
+        message.setVisible(visible);
+        rectangleAlert.setVisible(visible);
+        buttonCloseAlert.setVisible(visible);
     }
 
 }

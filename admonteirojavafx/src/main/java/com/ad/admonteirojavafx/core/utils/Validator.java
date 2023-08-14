@@ -1,14 +1,18 @@
 package com.ad.admonteirojavafx.core.utils;
 
 import com.ad.admonteirojavafx.core.enums.TypeInformation;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.time.LocalDate;
 
 public class Validator {
+
+    public static void validateUIDUser(PasswordField UIDUser) throws Exception{
+
+        if(UIDUser.getText().replaceAll("\\s","").isEmpty()){
+            throw new Exception("Name Empty");
+        }
+    }
 
     public static void validateCult(TextField nameCult,
                                     Integer dayWeek,
@@ -51,7 +55,7 @@ public class Validator {
     public static void validateDelete(TextField nameId) throws Exception{
 
         if(nameId.getText().replaceAll("\\s","").isEmpty()){
-            throw new Exception("Name or ID is Empty");
+            throw new Exception("ID user is Empty");
         }
     }
 

@@ -25,12 +25,7 @@ public class ExchangerPages {
         parent = FXMLLoader.load(ADApplication.class.getResource("home/ad-home.fxml"));
         init(event);
     }
-
-    public void exchangePageDelete(ActionEvent event) throws IOException{
-        parent = FXMLLoader.load(ADApplication.class.getResource("delete/ad-delete.fxml"));
-        init(event);
-    }
-
+    
     private void init(ActionEvent event) throws IOException{
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(parent);
